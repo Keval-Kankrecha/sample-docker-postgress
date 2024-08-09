@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  my-postgress-database:
+    image: postgres
+    ports:
+      - "5431:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: password
+  nestjs:
+    build:
+      context: .
+    container_name: my-nestjs-app
+    ports:
+      - "3001:3000"
+    depends_on:
+      - my-postgress-database
+    environment:
+      DB_HOST: my-postgress-database
+      DB_PORT: 5432
+      DB_NAME: postgres
+      DB_USERNAME: postgres
+      DB_PASSWORD: password
+volumes:
+  postgres-data:
+ 
