@@ -12,17 +12,20 @@ services:
   nestjs:
     build:
       context: .
+      dockerfile: Dockerfile
     container_name: my-nestjs-app
     ports:
       - "3001:3000"
     depends_on:
       - my-postgress-database
+    env_file:
+      - .env
     environment:
-      DB_HOST: my-postgress-database
-      DB_PORT: 5432
-      DB_NAME: postgres
-      DB_USERNAME: postgres
-      DB_PASSWORD: password
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_NAME: ${DB_NAME}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
 volumes:
   postgres-data:
  
